@@ -1,0 +1,48 @@
+Sub stockassignment()
+
+  ' Set an initial variable for holding the Ticker name
+  Dim Ticker As String
+
+  ' Set an initial variable for holding the total volume per ticker
+  Dim Volume_Total As LongLong
+  Volume_Total = 0
+
+  ' Keep track of the location for each Ticker in the summary table
+  Dim Summary_Table_Row As Integer
+  Summary_Table_Row = 2
+  
+  ' Loop through all days
+  For i = 2 To 800000
+
+    ' Check if we are still within the same ticker, if it is not...
+    If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+
+      ' Set the Ticker name
+      Ticker = Cells(i, 1).Value
+
+      ' Add to the Volume Total
+      Volume_Total = Volume_Total + Cells(i, 7).Value
+
+      ' Print the Ticker in the Summary Table
+      Range("L" & Summary_Table_Row).Value = Ticker
+
+      ' Print the Volume Total to the Summary Table
+      Range("M" & Summary_Table_Row).Value = Volume_Total
+
+      ' Add one to the summary table row
+      Summary_Table_Row = Summary_Table_Row + 1
+      
+      ' Reset the Volume Total
+      Volume_Total = 0
+      
+       Else
+
+      ' Add to the Volume Total
+      Volume_Total = Volume_Total + Cells(i, 7).Value
+
+
+    End If
+
+  Next i
+  
+End Sub
